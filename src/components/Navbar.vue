@@ -20,6 +20,10 @@
         <div class="nav--btn">
             <button>WIRTUALNY SZLAK</button>
         </div>
+        <div class="nav--hamburger">
+            <i class="fi fi-br-menu-burger" @click="klikam"></i>
+
+        </div>
     </nav>
 </template>
 
@@ -38,13 +42,15 @@ export default {
         scrollAnimation() {
 
             if (window.scrollY > 45) {
-                console.log('test')
                 this.navbarActive = 'active-nav';
                 this.navbarActiveHyperlink = 'active-nav-hyperlink';
             } else {
                 this.navbarActive = '';
                 this.navbarActiveHyperlink = '';
             }
+        },
+        klikam() {
+            console.log('msadjkahs')
         }
     }
 }
@@ -52,6 +58,30 @@ export default {
 
 <style scoped lang="scss">
 // @import '../../src/assets/app/style/scss/navbar.scss';
+
+$breakpoints: (
+    xs: 512px,
+    sm: 768px,
+    md: 896px,
+    md-xl: 950px,
+    lg: 1152px,
+    xl: 1280px
+);
+
+@mixin breakpoint( $breakpoint ) {
+    @if map-has-key( $breakpoints, $breakpoint )  {
+        @media ( max-width: #{ map-get($breakpoints, $breakpoint)} ) {
+            @content;
+        }
+        
+    } @else if type_of( $breakpoint ) == number and unit( $breakpoint ) == px or unit( $breakpoint ) == em or unit( $breakpoint ) == rem {
+        @media ( max-width: $breakpoint ) {
+            @content;
+        }
+   } @else {
+     @warn "Nie można pobrać żadnej wartości z `#{$breakpoint}`. Nie jest zdefiniowany w mapie `$breakpoints` lub jest nieprawidłową liczbą px, em, lub rem.";
+  }
+}
 
 @mixin flex($direction, $justifyContent) {
     display: flex;
@@ -85,6 +115,10 @@ nav {
     }
     
     .nav--menu {
+        @include breakpoint(md-xl){
+            display: none;
+        };
+
         height: 100%;
         @include flex(row, center);
 
@@ -97,6 +131,10 @@ nav {
         }
     }
     .nav--btn {
+        @include breakpoint(sm) {
+            display: none;
+        }
+
         height: 100%;
         padding-right: calc(10vw);
         @include flex(column, center);
@@ -110,6 +148,17 @@ nav {
         }
         
     }
+
+    .nav--hamburger {
+        display: none;
+
+        @include breakpoint(md-xl) {
+            display: block;
+            margin: 20px;
+            font-size: 25px;
+        }
+    }
+
 }
 
 .active-nav {
@@ -118,9 +167,6 @@ nav {
 }
 
 @keyframes show {
-    from {
-        
-    }
     to {
         background-color: #FFF;
         box-shadow: 0px 1px 3px #666;

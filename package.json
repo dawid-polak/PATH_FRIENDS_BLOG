@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@flaticon/flaticon-uicons": "^1.7.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {
