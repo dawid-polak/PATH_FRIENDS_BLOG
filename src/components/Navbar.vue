@@ -3,7 +3,7 @@
         <div class="nav--logo">
             <img src="../assets/app/logo/Monochrome on Transparent.png" alt="logo">
         </div>
-        <div class="nav--menu">
+        <div class="nav--menu" :class="mobileNav">
             <div class="nav--menu-link">
                 <a href="#" :class="navbarActiveHyperlink">O NAS</a>
             </div>
@@ -21,8 +21,8 @@
             <button>WIRTUALNY SZLAK</button>
         </div>
         <div class="nav--hamburger">
-            <i class="fi fi-br-menu-burger" @click="klikam"></i>
-
+            <i v-if="showBurger" class="fi fi-br-menu-burger" @click="showMobileNav"></i>
+            <i v-if="showCross" class="fi fi-br-cross" @click="hideMobileNav"></i>
         </div>
     </nav>
 </template>
@@ -32,7 +32,10 @@ export default {
     data(){
         return {
             navbarActive: '',
-            navbarActiveHyperlink: ''
+            navbarActiveHyperlink: '',
+            mobileNav: '',
+            showBurger: true,
+            showCross: false,
         }
     },
     created() {
@@ -40,24 +43,32 @@ export default {
     },
     methods: {
         scrollAnimation() {
-
             if (window.scrollY > 45) {
                 this.navbarActive = 'active-nav';
                 this.navbarActiveHyperlink = 'active-nav-hyperlink';
+                
             } else {
                 this.navbarActive = '';
                 this.navbarActiveHyperlink = '';
             }
+
         },
-        klikam() {
-            console.log('msadjkahs')
+        showMobileNav() {
+            this.mobileNav = 'show-mobile-nav';
+            console.log(this.mobileNav);
+            this.showBurger = !this.showBurger;
+            this.showCross = !this.showCross;
+        },
+        hideMobileNav() {
+            this.mobileNav = '';
+            this.showBurger = !this.showBurger;
+            this.showCross = !this.showCross;
         }
     }
 }
 </script>
 
 <style scoped lang="scss">
-// @import '../../src/assets/app/style/scss/navbar.scss';
 
 $breakpoints: (
     xs: 512px,
@@ -73,7 +84,6 @@ $breakpoints: (
         @media ( max-width: #{ map-get($breakpoints, $breakpoint)} ) {
             @content;
         }
-        
     } @else if type_of( $breakpoint ) == number and unit( $breakpoint ) == px or unit( $breakpoint ) == em or unit( $breakpoint ) == rem {
         @media ( max-width: $breakpoint ) {
             @content;
@@ -104,7 +114,8 @@ nav {
     height: 90px;
     width: 100vw;
 
-    @include flex(row, space-between);
+    @include flex(row, space-around);
+
     .nav--logo {
         height: 80%;
         padding: 10% 0 10% 10vw;
@@ -112,33 +123,40 @@ nav {
             height: 100%;
             width: 100%;
         }
+        @include breakpoint(md-xl) {
+            z-index: 10000;
+        }
     }
     
     .nav--menu {
         @include breakpoint(md-xl){
+            @include flex(column, space-around);
             display: none;
-        };
-
-        height: 100%;
+            position: absolute;
+            margin: 440px auto 0px auto;
+            width: 100%;
+            height: 350px;
+            background-color: #0F222D;
+        }
         @include flex(row, center);
-
+        height: 100%;
         .nav--menu-link {
             padding: 10px;
-
             a {
                 @include hyperlink(#FFF, #FEF4CF);
             }
         }
     }
+    .show-mobile-nav {
+        display: flex;
+    }
     .nav--btn {
         @include breakpoint(sm) {
             display: none;
         }
-
+        @include flex(column, center);
         height: 100%;
         padding-right: calc(10vw);
-        @include flex(column, center);
-
         button {
             border: 0;
             background-color: #FEF4CF;
@@ -148,19 +166,16 @@ nav {
         }
         
     }
-
     .nav--hamburger {
         display: none;
-
         @include breakpoint(md-xl) {
             display: block;
             margin: 20px;
             font-size: 25px;
+            z-index: 10000;
         }
     }
-
 }
-
 .active-nav {
     animation: show 0.5s ease-in-out;
     animation-fill-mode: forwards;
@@ -173,20 +188,14 @@ nav {
         color: #000;
     }
 }
-
 .active-nav-hyperlink {
     animation: showHyperlink 0.5s ease-in-out;
     animation-fill-mode: forwards;
 }
 
 @keyframes showHyperlink {
-    from {
-        
-    }
     to {
         color: #000;
     }
 }
-
-
 </style>
