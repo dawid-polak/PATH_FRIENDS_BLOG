@@ -55,7 +55,6 @@ export default {
         },
         showMobileNav() {
             this.mobileNav = 'show-mobile-nav';
-            console.log(this.mobileNav);
             this.showBurger = !this.showBurger;
             this.showCross = !this.showCross;
         },
