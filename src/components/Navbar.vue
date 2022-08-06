@@ -120,7 +120,6 @@ nav {
         padding: 10% 0 10% 10vw;
         img {
             height: 100%;
-            width: 100%;
         }
         @include breakpoint(md-xl) {
             z-index: 10000;
