@@ -1,11 +1,16 @@
 <template>
     <nav :class="navbarActive">
         <div class="nav--logo">
-            <img src="../assets/app/logo/Monochrome on Transparent.png" alt="logo">
+            <router-link to="/">
+                <img src="../assets/app/logo/Monochrome on Transparent.png" alt="logo">
+            </router-link>
         </div>
         <div class="nav--menu" :class="mobileNav">
             <div class="nav--menu-link">
-                <a href="#" :class="navbarActiveHyperlink">O NAS</a>
+                <!-- I know it doesn't have sens... I will fix it -->
+                <router-link to="/about">
+                    <a :class="navbarActiveHyperlink">O NAS</a>
+                </router-link>
             </div>
             <div class="nav--menu-link">
                 <a href="#" :class="navbarActiveHyperlink">BLOG</a>
