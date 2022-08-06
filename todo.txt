@@ -1,0 +1,2 @@
+1. wyciagnąć do góry mixiny od felxa i breakpoints
+2. 
