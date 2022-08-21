@@ -8,18 +8,24 @@
         <div class="nav--menu" :class="mobileNav">
             <div class="nav--menu-link">
                 <!-- I know it doesn't have sens... I will fix it -->
-                <router-link to="/about">
+                <router-link to="/">
                     <a :class="navbarActiveHyperlink">O NAS</a>
                 </router-link>
             </div>
             <div class="nav--menu-link">
-                <a href="#" :class="navbarActiveHyperlink">BLOG</a>
+                <router-link to="/">
+                    <a :class="navbarActiveHyperlink">BLOG</a>
+                </router-link>
             </div>
             <div class="nav--menu-link">
-                <a href="#" :class="navbarActiveHyperlink">ULUBIONE</a>
+                <router-link to="/">
+                    <a :class="navbarActiveHyperlink">ULUBIONE</a>
+                </router-link>
             </div>  
             <div class="nav--menu-link">
-                <a href="#" :class="navbarActiveHyperlink">KONTAKT</a>
+                <router-link to="/">
+                    <a :class="navbarActiveHyperlink">KONTAKT</a>
+                </router-link>
             </div>
         </div>
         <div class="nav--btn">

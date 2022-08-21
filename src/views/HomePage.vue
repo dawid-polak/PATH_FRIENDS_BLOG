@@ -5,21 +5,45 @@
             <h6>Józef Tischner</h6>
         </div>
         <div class="welcome--content-btn">
-            <router-link to="/about">
+            <router-link to="/">
                 <button>
                     kim jesteśmy?
                 </button>
             </router-link>
         </div>
     </div>
+    <News/>
 </template>
 
 <script>
- 
+ import News from '../components/News.vue';
 
 </script>
 
 <style scoped lang="scss">
+$breakpoints: (
+    xs: 512px,
+    sm: 768px,
+    md: 896px,
+    md-xl: 950px,
+    lg: 1152px,
+    xl: 1280px
+);
+
+@mixin breakpoint( $breakpoint ) {
+    @if map-has-key( $breakpoints, $breakpoint )  {
+        @media ( max-width: #{ map-get($breakpoints, $breakpoint)} ) {
+            @content;
+        }
+    } @else if type_of( $breakpoint ) == number and unit( $breakpoint ) == px or unit( $breakpoint ) == em or unit( $breakpoint ) == rem {
+        @media ( max-width: $breakpoint ) {
+            @content;
+        }
+   } @else {
+     @warn "Nie można pobrać żadnej wartości z `#{$breakpoint}`. Nie jest zdefiniowany w mapie `$breakpoints` lub jest nieprawidłową liczbą px, em, lub rem.";
+  }
+}
+
 .welcome--content {
       height: 100vh;
       position: relative;
@@ -35,6 +59,10 @@
         margin: auto;
 
         h1 {
+
+            @include breakpoint(xs) {
+                font-size: 20px;
+            }
             margin: 20px;
             color: #FFF;
         }
